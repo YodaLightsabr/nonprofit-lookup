@@ -12,13 +12,15 @@ const tableLinkSelector = `tr td a`;
  * @param {string} org Search query
  * @param {string} state A two letter state abbreviation.
  * @param {'A'|'B'|''|undefined} type The type of record to find. A, B, or blank. 990 or 990-PF
+ * @param {string} ein An EIN number without dashes to find
  * @returns 
  */
-const generateURL = (org, state = '', type = '') => `https://990finder.foundationcenter.org/990results.aspx?990_type=${encodeURIComponent(type)}&fn=${encodeURIComponent(org).split('%20').join('+')}&st=${encodeURIComponent(state)}&zp=&ei=&fy=&action=Search`;
+
+const generateURL = (org = '', state = '', type = '', ein = '') => `https://990finder.foundationcenter.org/990results.aspx?990_type=${encodeURIComponent(type)}&fn=${encodeURIComponent(org).split('%20').join('+')}&st=${encodeURIComponent(state)}&zp=&ei=${encodeURIComponent(ein)}&fy=&action=Search`;
 
 
-const lookup = async (org, state = '', type = '') => {
-    const url = generateURL(org, state, type);
+const lookup = async (org = '', state = '', type = '', ein = '') => {
+    const url = generateURL(org, state, type, ein);
     const response = await fetch(url);
     const html = await response.text();
     const $ = cheerio.load(html);
@@ -29,6 +31,6 @@ const lookup = async (org, state = '', type = '') => {
 }
 
 export default async function (req, res) {
-    const data = await lookup(req.query.org, req.query.state, req.query.type);
+    const data = await lookup(req.query.org, req.query.state, req.query.type, req.query.ein);
     res.json(data);
 }
