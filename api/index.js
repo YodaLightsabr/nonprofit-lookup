@@ -14,10 +14,10 @@ const tableLinkSelector = `tr td a`;
  * @param {'A'|'B'|''|undefined} type The type of record to find. A, B, or blank. 990 or 990-PF
  * @returns 
  */
-const generateURL = (org, state, type = '') => `https://990finder.foundationcenter.org/990results.aspx?990_type=${encodeURIComponent(type)}&fn=${encodeURIComponent(org).split('%20').join('+')}&st=${encodeURIComponent(state)}&zp=&ei=&fy=&action=Search`;
+const generateURL = (org, state = '', type = '') => `https://990finder.foundationcenter.org/990results.aspx?990_type=${encodeURIComponent(type)}&fn=${encodeURIComponent(org).split('%20').join('+')}&st=${encodeURIComponent(state)}&zp=&ei=&fy=&action=Search`;
 
 
-const lookup = async (org, state, type = '') => {
+const lookup = async (org, state = '', type = '') => {
     const url = generateURL(org, state, type);
     const response = await fetch(url);
     const html = await response.text();
