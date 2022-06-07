@@ -1,0 +1,17 @@
+{
+  "name": "nonprofit-lookup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.11",
+    "node-fetch": "^3.2.5",
+    "tabletojson": "^2.0.7"
+  }
+}
